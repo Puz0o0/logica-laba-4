@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS_
+#define _CTR_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -12,7 +12,7 @@ struct Node {
 struct Node* root;
 
 struct Node* CreateTree(struct Node* root, int data) {
-	// Если дерево пустое, создаем новый узел
+
 	if (root == NULL) {
 		struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
 		if (newNode == NULL) {
@@ -25,7 +25,7 @@ struct Node* CreateTree(struct Node* root, int data) {
 		return newNode;
 	}
 
-	// Если дерево не пустое, рекурсивно добавляем узел
+	
 	if (data < root->data) {
 		root->left = CreateTree(root->left, data);
 	}
@@ -63,24 +63,24 @@ struct Node* SearchTree(struct Node* r, int data) {
 	}
 }
 
-// Обновленная функция для подсчета вхождений и определения их уровня
+
 int CountOccurrences(struct Node* r, int data, int level, int* lastLevel) {
 	if (r == NULL) {
-		return 0; // Базовый случай: если узел пустой, возвращаем 0
+		return 0;
 	}
 
-	int count = (r->data == data) ? 1 : 0; // Если узел равен искомому значению, увеличиваем счетчик
+	int count = (r->data == data) ? 1 : 0;
 
-	// Если мы нашли совпадение, обновляем уровень
+
 	if (count == 1) {
 		*lastLevel = level;
 	}
 
-	// Рекурсивно считаем вхождения в левом и правом поддеревьях
+
 	count += CountOccurrences(r->left, data, level + 1, lastLevel);
 	count += CountOccurrences(r->right, data, level + 1, lastLevel);
 
-	return count; // Возвращаем общее количество вхождений
+	return count;
 }
 
 int main() {
@@ -91,7 +91,7 @@ int main() {
 	printf("-1 - окончание построения дерева\n");
 	while (start) {
 		printf("Введите число: ");
-		scanf_s("%d", &D);
+		scanf("%d", &D);
 		if (D == -1) {
 			printf("Построение дерева окончено\n\n");
 			start = 0;
@@ -104,7 +104,7 @@ int main() {
 	print_tree(root, 0);
 
 	printf("\nВведите число для поиска: ");
-	scanf_s("%d", &D);
+	scanf("%d", &D);
 
 	struct Node* result = SearchTree(root, D);
 	if (result != NULL) {
@@ -114,7 +114,7 @@ int main() {
 		printf("Значение %d не найдено в дереве.\n", D);
 	}
 
-	// Подсчёт вхождений заданного числа и уровня последнего вхождения
+
 	int occurrences, lastLevel = -1;
 	occurrences = CountOccurrences(root, D, 0, &lastLevel);
 	printf("Количество вхождений значения %d в дереве: %d\n", D, occurrences);
